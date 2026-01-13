@@ -8,7 +8,7 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        name: "Simple PWA",
+        name: "PWA Demo",
         short_name: "PWA",
         start_url: "/",
         display: "standalone",
