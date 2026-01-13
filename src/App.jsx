@@ -50,16 +50,20 @@ function App() {
     setDeferredPrompt(null);
   };
 
+  {
+    /* Offline Banner */
+  }
+  {
+    !isOnline && (
+      <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white flex items-center justify-center gap-3 py-3 shadow-lg">
+        <img src="/Icons/icon-512.png" alt="Offline" className="w-6 h-6" />
+        <span className="font-medium">You are offline</span>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-      {/* Offline Banner */}
-      {!isOnline && (
-        <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white flex items-center justify-center gap-3 py-3 shadow-lg">
-          <img src="/Icons/icon-512.png" alt="Offline" className="w-6 h-6" />
-          <span className="font-medium">You are offline</span>
-        </div>
-      )}
-
       {/* Navbar */}
       <nav className="flex flex-col gap-4 sm:flex-row justify-between items-center px-10 py-6">
         <h1 className="text-2xl font-bold tracking-wide">PWA Demo</h1>
