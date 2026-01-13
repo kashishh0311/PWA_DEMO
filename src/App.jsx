@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 
 function App() {
+  // PWA install prompt
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+
+  // Online / Offline state
+  const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   const features = [
     { title: "App Installation", desc: "Install like a mobile app" },
@@ -9,21 +13,35 @@ function App() {
     { title: "Push Notifications", desc: "Engage users easily" },
   ];
 
-  // Capture install event
+  // Capture PWA install event
   useEffect(() => {
-    const handler = (e) => {
+    const handleInstallPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
 
-    window.addEventListener("beforeinstallprompt", handler);
+    window.addEventListener("beforeinstallprompt", handleInstallPrompt);
 
     return () => {
-      window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("beforeinstallprompt", handleInstallPrompt);
     };
   }, []);
 
-  // Install app on button click
+  // Online / Offline listeners
+  useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  // Trigger install
   const handleInstall = async () => {
     if (!deferredPrompt) return;
 
@@ -34,18 +52,29 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white">
+      {/* Offline Banner */}
+      {!isOnline && (
+        <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white flex items-center justify-center gap-3 py-3 shadow-lg">
+          <img src="/Icons/icon-512.png" alt="Offline" className="w-6 h-6" />
+          <span className="font-medium">You are offline</span>
+        </div>
+      )}
+
       {/* Navbar */}
       <nav className="flex flex-col gap-4 sm:flex-row justify-between items-center px-10 py-6">
         <h1 className="text-2xl font-bold tracking-wide">PWA Demo</h1>
 
-        {deferredPrompt && (
-          <button
-            onClick={handleInstall}
-            className="px-5 py-2 rounded-lg bg-white text-black font-medium hover:bg-gray-200 transition"
-          >
-            Install App
-          </button>
-        )}
+        <button
+          onClick={handleInstall}
+          disabled={!deferredPrompt}
+          className={`px-5 py-2 rounded-lg font-medium transition ${
+            deferredPrompt
+              ? "bg-white text-black hover:bg-gray-200"
+              : "bg-gray-500 text-gray-300 cursor-not-allowed"
+          }`}
+        >
+          {deferredPrompt ? "Install App" : "Installed"}
+        </button>
       </nav>
 
       {/* Hero Section */}
@@ -58,20 +87,9 @@ function App() {
           installation, and push notifications.
         </p>
 
-        <div className="flex gap-6 flex-wrap justify-center">
-          <button className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 transition shadow-lg">
-            Enable Notifications
-          </button>
-
-          {deferredPrompt && (
-            <button
-              onClick={handleInstall}
-              className="px-8 py-4 rounded-xl border border-white hover:bg-white hover:text-black transition shadow-lg"
-            >
-              Download
-            </button>
-          )}
-        </div>
+        <button className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 transition shadow-lg">
+          Enable Notifications
+        </button>
       </section>
 
       {/* Feature Cards */}
