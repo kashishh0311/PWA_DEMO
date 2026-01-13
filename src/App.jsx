@@ -50,14 +50,18 @@ function App() {
     setDeferredPrompt(null);
   };
 
-  {
-    /* Offline Banner */
-  }
-  {
-    !isOnline && (
-      <div className="fixed top-0 left-0 right-0 z-50 bg-red-600 text-white flex items-center justify-center gap-3 py-3 shadow-lg">
-        <img src="/Icons/icon-512.png" alt="Offline" className="w-6 h-6" />
-        <span className="font-medium">You are offline</span>
+  if (!isOnline) {
+    return (
+      <div className="min-h-screen flex flex-col items-center justify-center bg-slate-900 text-white text-center px-6">
+        <img
+          src="/Icons/icon-512.png"
+          alt="Offline"
+          className="w-32 h-32 mb-6 opacity-90"
+        />
+
+        <h2 className="text-2xl font-semibold mb-2">You are offline</h2>
+
+        <p className="text-gray-400">Please check your internet connection</p>
       </div>
     );
   }
