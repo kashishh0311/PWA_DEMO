@@ -56,7 +56,7 @@ function App() {
         <img
           src="/Icons/icon-512.png"
           alt="Offline"
-          className="w-32 h-32 mb-6 opacity-90 rounded-[10px]"
+          className="w-32 h-32 mb-6 opacity-90 rounded-[20px]"
         />
         <h2 className="flex items-center gap-2 text-2xl font-semibold">
           You are offline
