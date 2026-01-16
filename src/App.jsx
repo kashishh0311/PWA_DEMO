@@ -5,9 +5,23 @@ import OfflineScreen from "./Components/OfflineScreen";
 import FeatureGrid from "./Components/FeatureGrid";
 import useOnlineStatus from "./hooks/useOnlineStatus";
 import features from "./data/features.json";
-
+import SplashScreen
+ from "./Components/SplashScreen";
 function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [showSplash, setShowSplash] = useState(true);
+
+    useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSplash(false);
+    }, 1000); // 1 second
+
+    return () => clearTimeout(timer);
+  }, []);
+  
+  if (showSplash) {
+    return <SplashScreen />;
+  }
 
   // Reusable online/offline hook
   const isOnline = useOnlineStatus();
