@@ -17,14 +17,14 @@ function Hero({ deferredPrompt, onInstall }) {
           Enable Notifications
         </button>
 
-        {deferredPrompt && (
+      
           <button
             onClick={onInstall}
             className="px-8 py-4 rounded-xl border border-white hover:bg-white hover:text-black transition shadow-lg"
           >
-            Download
+            Camera Access
           </button>
-        )}
+        
       </div>
     </section>
   );
