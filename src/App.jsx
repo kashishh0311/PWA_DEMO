@@ -38,7 +38,7 @@ function App() {
         <Navbar deferredPrompt={deferredPrompt} onInstall={handleInstall} />
 
         {/* Main content */}
-        <main className="flex-grow">
+        <main >
           <Hero />
           <FeatureGrid features={features} />
         </main>
