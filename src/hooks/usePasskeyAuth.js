@@ -1,3 +1,11 @@
+import { useEffect, useRef, useState } from "react";
+import { authenticateUser } from "../utils/auth";
+import { registerPasskey } from "../utils/registerPasskey";
+
+export const isPWA = () =>
+  window.matchMedia("(display-mode: standalone)").matches ||
+  window.navigator.standalone === true;
+
 export default function usePasskeyAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const isAuthenticating = useRef(false);
@@ -36,7 +44,7 @@ export default function usePasskeyAuth() {
 
   useEffect(() => {
     const onVisible = () => {
-      // Only trigger if document was hidden and is now visible
+      
       if (document.visibilityState === 'visible' && !isPWA()) return;
       if (document.visibilityState !== 'visible') return;
       
