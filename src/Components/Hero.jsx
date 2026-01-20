@@ -13,14 +13,14 @@ function Hero({ deferredPrompt, onInstall }) {
       </p>
 
       <div className="flex gap-6 flex-wrap justify-center">
-        <button className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 transition shadow-lg">
+        <button className="px-8 py-4 rounded-xl bg-blue-600 hover:bg-blue-700 hover:translate-x-[4px] transition-all duration-300 ease-out hover:shadow-2xl shadow-lg">
           Enable Notifications
         </button>
 
       
           <button
             onClick={onInstall}
-            className="px-8 py-4 rounded-xl border border-white hover:bg-white hover:text-black transition shadow-lg"
+            className="px-8 py-4 rounded-xl border border-white hover:bg-white hover:text-black hover:translate-x-[4px] transition-all duration-300 ease-out hover:shadow-2xl shadow-lg"
           >
             Camera Access
           </button>
