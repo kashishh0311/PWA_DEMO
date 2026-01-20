@@ -13,7 +13,7 @@ function Navbar({ deferredPrompt, onInstall }) {
         {deferredPrompt && (
           <button
             onClick={onInstall}
-            className="px-5 py-2 rounded-lg bg-white text-black font-medium hover:bg-gray-200 transition"
+            className="px-5 py-2 rounded-lg bg-white text-black font-medium hover:translate-x-[4px] transition-all duration-300 ease-out hover:shadow-2xl"
           >
             Install App
           </button>
