@@ -4,7 +4,7 @@ function Navbar({ deferredPrompt, onInstall }) {
   return (
     <nav className="px-10 py-6">
       <div
-        className={`flex items-center ${
+        className={`flex flex-col sm:flex-row items-center ${
           deferredPrompt ? "justify-between" : "justify-center"
         }`}
       >
