@@ -62,10 +62,11 @@ export async function enableNotifications() {
             return null;
         }
 
-        const registration = await navigator.serviceWorker.register("/firebase-messaging-sw.js");
-        await navigator.serviceWorker.ready;
+        // DON'T register again - use existing registration
+        const registration = await navigator.serviceWorker.ready;
+        console.log("✅ Using existing SW registration");
         
-        // Wait 1 second for mobile (fixes the reload issue)
+        // Wait 1 second for mobile
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         const token = await getToken(messaging, { 

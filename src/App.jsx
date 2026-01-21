@@ -9,11 +9,21 @@ import LockScreen from "./Components/LockScreen";
 
 function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [swRegistration, setSwRegistration] = useState(null); // ← ADD THIS
   const { isAuthenticated, isPWA } = usePasskeyAuth();
 
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/firebase-messaging-sw.js");
-}
+  // Register SW once on app load
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/firebase-messaging-sw.js", {
+        updateViaCache: 'none'
+      }).then(reg => {
+        setSwRegistration(reg); // ← SAVE REGISTRATION
+        console.log("✅ SW registered once");
+      });
+    }
+  }, []);
+
   // PWA install 
   useEffect(() => {
     const handleInstallPrompt = (e) => {
@@ -33,23 +43,15 @@ if ("serviceWorker" in navigator) {
     setDeferredPrompt(null);
   };
 
-
   return (
     <LockScreen isAuthenticated={isAuthenticated} isPWA={isPWA()}>
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-slate-900 to-slate-800 text-white">
-
-        {/* Header */}
         <Navbar deferredPrompt={deferredPrompt} onInstall={handleInstall} />
-
-        {/* Main content */}
-        <main >
+        <main>
           <Hero />
           <FeatureGrid features={features} />
         </main>
-
-        {/* Footer section */}
         <Footer />
-
       </div>
     </LockScreen>
   );
