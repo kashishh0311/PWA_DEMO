@@ -50,23 +50,24 @@
 //         return null;
 //     }
 // }
-import { getToken } from "firebase/messaging";
-import { messaging } from "../firebase/Firebase.js";
-
 export async function enableNotifications() {
     try {
         const permission = await Notification.requestPermission();
-        
         if (permission !== "granted") {
             alert("Please allow notifications");
             return null;
         }
 
-        // DON'T register again - use existing registration
-        const registration = await navigator.serviceWorker.ready;
-        console.log("✅ Using existing SW registration");
+        // Register SW here (not in App.jsx)
+        let registration = await navigator.serviceWorker.getRegistration();
+        if (!registration) {
+            registration = await navigator.serviceWorker.register(
+                "/firebase-messaging-sw.js",
+                { updateViaCache: 'none' }
+            );
+        }
         
-        // Wait 1 second for mobile
+        await navigator.serviceWorker.ready;
         await new Promise(resolve => setTimeout(resolve, 1000));
 
         const token = await getToken(messaging, { 
@@ -81,7 +82,6 @@ export async function enableNotifications() {
 
         console.log("FCM TOKEN:", token);
         sessionStorage.setItem("fcmToken", token);
-        
         alert("Notifications enabled!");
         return token;
 
