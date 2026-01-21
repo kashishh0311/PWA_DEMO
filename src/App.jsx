@@ -11,6 +11,9 @@ function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const { isAuthenticated, isPWA } = usePasskeyAuth();
 
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/firebase-messaging-sw.js");
+}
   // PWA install 
   useEffect(() => {
     const handleInstallPrompt = (e) => {
@@ -29,6 +32,7 @@ function App() {
     await deferredPrompt.userChoice;
     setDeferredPrompt(null);
   };
+
 
   return (
     <LockScreen isAuthenticated={isAuthenticated} isPWA={isPWA()}>
