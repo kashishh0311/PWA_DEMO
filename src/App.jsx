@@ -11,6 +11,7 @@ import LockScreen from "./Components/LockScreen";
 function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
   const { isAuthenticated, isPWA } = usePasskeyAuth();
+    const [fcmToken, setFcmToken] = useState("");
 
 
   useEffect(() => {
@@ -19,6 +20,14 @@ function App() {
       setDeferredPrompt(e);
     };
 
+
+      useEffect(() => {
+    // Load token from localStorage on mount
+    const token = localStorage.getItem("fcmToken");
+    if (token) {
+      setFcmToken(token);
+    }
+  }, []);
     window.addEventListener("beforeinstallprompt", handleInstallPrompt);
     return () =>
       window.removeEventListener("beforeinstallprompt", handleInstallPrompt);
@@ -39,7 +48,7 @@ function App() {
           <Hero />
           <FeatureGrid features={features} />
         </main>
-        <Footer />
+     <p>{fcmToken}</p>
       </div>
     </LockScreen>
   );
