@@ -14,7 +14,7 @@ const messaging = firebase.messaging();
 
 // messaging.onBackgroundMessage((payload) => {
 //   self.registration.showNotification(
-//     payload.data?.title || 'Notification',
-//     { body: payload.data?.body || '' }
+//     payload.data?.title || "Notification",
+//     { body: payload.data?.body || "New message" }
 //   );
 // });

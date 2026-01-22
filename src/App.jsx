@@ -10,18 +10,22 @@ import LockScreen from "./Components/LockScreen";
 
 function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
-  const [swRegistration, setSwRegistration] = useState(null); // ← ADD THIS
   const { isAuthenticated, isPWA } = usePasskeyAuth();
 
-  // Register SW once on app load
+
+  //regiser sw
   useEffect(() => {
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/firebase-messaging-sw.js", {
-        updateViaCache: 'none'
-      }).then(reg => {
-        setSwRegistration(reg); // ← SAVE REGISTRATION
-        console.log("✅ SW registered once");
-      });
+      navigator.serviceWorker.register("/service-worker.js").then(  
+        (registration) => {
+          console.log("Service Worker registered with scope:", registration.scope);
+        },
+        (err) => {
+          console.log("Service Worker registration failed:", err);
+        }
+      );
+    } else {
+      console.log("Service Worker is not supported in this browser.");
     }
   }, []);
 
