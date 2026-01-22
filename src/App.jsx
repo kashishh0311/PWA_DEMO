@@ -13,11 +13,6 @@ function App() {
   const { isAuthenticated, isPWA } = usePasskeyAuth();
 
 
-//register service worker
-if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("/firebase-messaging-sw.js");
-}
-
   useEffect(() => {
     const handleInstallPrompt = (e) => {
       e.preventDefault();
