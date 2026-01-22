@@ -7,28 +7,28 @@ import features from "./data/features.json";
 import usePasskeyAuth from "./hooks/usePasskeyAuth";
 import LockScreen from "./Components/LockScreen";
 
-
 function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [fcmToken, setFcmToken] = useState("");
   const { isAuthenticated, isPWA } = usePasskeyAuth();
-    const [fcmToken, setFcmToken] = useState("");
 
+  // ✅ First useEffect - Load FCM token
+  useEffect(() => {
+    const token = localStorage.getItem("fcmToken");
+    if (token) {
+      setFcmToken(token);
+    }
+  }, []);
 
+  // ✅ Second useEffect - Install prompt listener
   useEffect(() => {
     const handleInstallPrompt = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
     };
 
-
-      useEffect(() => {
-    // Load token from localStorage on mount
-    const token = localStorage.getItem("fcmToken");
-    if (token) {
-      setFcmToken(token);
-    }
-  }, []);
     window.addEventListener("beforeinstallprompt", handleInstallPrompt);
+    
     return () =>
       window.removeEventListener("beforeinstallprompt", handleInstallPrompt);
   }, []);
@@ -48,7 +48,12 @@ function App() {
           <Hero />
           <FeatureGrid features={features} />
         </main>
-     <p>{fcmToken}</p>
+        <Footer />
+        {fcmToken && (
+          <p className="text-center text-xs text-gray-500 py-2">
+            Token: {fcmToken}
+          </p>
+        )}
       </div>
     </LockScreen>
   );
