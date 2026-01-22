@@ -1,3 +1,7 @@
+
+import { getToken } from "firebase/messaging";
+import { messaging } from "../firebase";
+
 export async function enableNotifications() {
     try {
         const permission = await Notification.requestPermission();
