@@ -14,7 +14,10 @@ export default defineConfig({
       filename: 'firebase-messaging-sw.js',
       injectManifest: {
         injectionPoint: undefined,
-        globPatterns: []
+      globPatterns: [
+          '**/*.{js,css,html}',
+          'Icons/*.png'  // Add this to cache your icons
+        ]
       },
       devOptions: {
         enabled: true,
