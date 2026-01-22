@@ -6,6 +6,7 @@ import Footer from "./Components/Footer";
 import features from "./data/features.json";
 import usePasskeyAuth from "./hooks/usePasskeyAuth";
 import LockScreen from "./Components/LockScreen";
+import Camera from "./Components/Camara";
 
 function App() {
   const [deferredPrompt, setDeferredPrompt] = useState(null);
@@ -49,7 +50,10 @@ function App() {
         <Navbar deferredPrompt={deferredPrompt} onInstall={handleInstall} />
         <main>
           <Hero />
+          <h2 className="text-3xl font-bold text-center mt-16 mb-8">Camera</h2>
+          <Camera />
           <FeatureGrid features={features} />
+
         </main>
         <Footer />
       </div>
