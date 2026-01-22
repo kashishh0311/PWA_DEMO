@@ -50,8 +50,7 @@ function App() {
         <Navbar deferredPrompt={deferredPrompt} onInstall={handleInstall} />
         <main>
           <Hero />
-          <h2 className="text-3xl font-bold text-center mt-16 mb-8">Camera</h2>
-          <Camera />
+
           <FeatureGrid features={features} />
 
         </main>
