@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {enableNotifications} from "../utils/notifications";
 
 function Hero() {
+
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const token = localStorage.getItem("fcmToken");
+    if (token) {
+      setToken(token);
+    }
+  }, []);
     const handleCameraAccess = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
@@ -39,6 +48,7 @@ function Hero() {
           </button>
         
       </div>
+      {token && <p className="mt-4 text-gray-300">FCM Token: {token}</p>}
     </section>
   );
 }
