@@ -33,7 +33,7 @@ function Hero() {
       
           <button
             className="px-8 py-4 rounded-xl border border-white hover:bg-white hover:text-black hover:translate-x-[4px] transition-all duration-300 ease-out hover:shadow-2xl shadow-lg"
-          onClick={handleCameraAccess}
+            onClick={handleCameraAccess}
           >
             Camera Access
           </button>

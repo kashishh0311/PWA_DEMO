@@ -13,17 +13,17 @@ function App() {
   const [swRegistration, setSwRegistration] = useState(null); // ← ADD THIS
   const { isAuthenticated, isPWA } = usePasskeyAuth();
 
-  // // Register SW once on app load
-  // useEffect(() => {
-  //   if ("serviceWorker" in navigator) {
-  //     navigator.serviceWorker.register("/firebase-messaging-sw.js", {
-  //       updateViaCache: 'none'
-  //     }).then(reg => {
-  //       setSwRegistration(reg); // ← SAVE REGISTRATION
-  //       console.log("✅ SW registered once");
-  //     });
-  //   }
-  // }, []);
+  // Register SW once on app load
+  useEffect(() => {
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/firebase-messaging-sw.js", {
+        updateViaCache: 'none'
+      }).then(reg => {
+        setSwRegistration(reg); // ← SAVE REGISTRATION
+        console.log("✅ SW registered once");
+      });
+    }
+  }, []);
 
   // PWA install 
   useEffect(() => {
