@@ -16,7 +16,7 @@ export default defineConfig({
         injectionPoint: undefined,
       globPatterns: [
           '**/*.{js,css,html}',
-          'Icons/*.png'  // Add this to cache your icons
+          'Icons/*.png'  
         ]
       },
       devOptions: {
