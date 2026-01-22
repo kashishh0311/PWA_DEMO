@@ -1,6 +1,6 @@
 
 import { getToken } from "firebase/messaging";
-import { messaging } from "../firebase";
+import { messaging } from "../firebase/Firebase";
 
 export async function enableNotifications() {
     try {
