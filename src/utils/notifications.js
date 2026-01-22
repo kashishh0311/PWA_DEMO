@@ -58,7 +58,7 @@ export async function enableNotifications() {
             return null;
         }
 
-        // Register SW here (not in App.jsx)
+
         let registration = await navigator.serviceWorker.getRegistration();
         if (!registration) {
             registration = await navigator.serviceWorker.register(

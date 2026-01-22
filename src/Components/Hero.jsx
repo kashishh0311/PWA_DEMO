@@ -1,7 +1,17 @@
 import React from "react";
 import {enableNotifications} from "../utils/notifications";
 
-function Hero({ deferredPrompt, onInstall }) {
+function Hero() {
+    const handleCameraAccess = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      console.log("Camera Access Granted:", stream);
+      alert("Camera Access Enabled");
+    } catch (error) {
+      console.error("Camera Access Denied:", error);
+      alert("Camera Access Denied");
+    }
+  };
   return (
     <section className="flex flex-col items-center justify-center text-center mt-20 px-6">
       <h2 className="text-4xl md:text-5xl font-extrabold mb-6">
@@ -22,8 +32,8 @@ function Hero({ deferredPrompt, onInstall }) {
 
       
           <button
-            onClick={onInstall}
             className="px-8 py-4 rounded-xl border border-white hover:bg-white hover:text-black hover:translate-x-[4px] transition-all duration-300 ease-out hover:shadow-2xl shadow-lg"
+          onClick={handleCameraAccess}
           >
             Camera Access
           </button>
