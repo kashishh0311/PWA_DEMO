@@ -1,24 +1,38 @@
 export async function registerPasskey() {
   try {
+
+    //one
     const publicKey = {
       challenge: crypto.getRandomValues(new Uint8Array(32)),
+
+      //two
       rp: {
         name: "PWA Demo",
-        id: window.location.hostname
+        id: "pwa-demo-react.vercel.app"
       },
+
+      //three
       user: {
         id: crypto.getRandomValues(new Uint8Array(16)),
-        name: "user@example.com",
-        displayName: "Local User"
+        name: "pwa@gmail.com",
+        displayName: "PWA USER"
       },
+
+      //four
       pubKeyCredParams: [
         { type: "public-key", alg: -7 }
       ],
+
+      //five
       authenticatorSelection: {
         authenticatorAttachment: "platform",
         userVerification: "required",
       },
+
+      //six
       timeout: 60000,
+
+      //seven
       attestation: "none",
     };
 

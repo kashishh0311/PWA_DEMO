@@ -10,6 +10,8 @@ export default function usePasskeyAuth() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const isAuthenticating = useRef(false);
 
+
+  //main function to trigger auth
   const triggerAuth = async () => {
     if (isAuthenticating.current || !isPWA()) return; 
     isAuthenticating.current = true;
@@ -38,10 +40,13 @@ export default function usePasskeyAuth() {
     }
   };
 
+  //if pwa 
   useEffect(() => {
     if (isPWA()) triggerAuth();
   }, []);
 
+  
+  //change screen or switch to other app
   useEffect(() => {
     const onVisible = () => {
       
@@ -56,6 +61,7 @@ export default function usePasskeyAuth() {
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
   }, []);
+
 
   return { isAuthenticated, triggerAuth, isPWA };
 }
