@@ -17,7 +17,6 @@ if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/firebase-messaging-sw.js");
 }
 
-  // PWA install 
   useEffect(() => {
     const handleInstallPrompt = (e) => {
       e.preventDefault();
