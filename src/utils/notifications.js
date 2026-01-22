@@ -10,7 +10,6 @@ export async function enableNotifications() {
             return null;
         }
 
-        // ✅ Use the EXISTING service worker (already registered by Vite PWA)
         await navigator.serviceWorker.ready;
         const registration = await navigator.serviceWorker.getRegistration();
         
@@ -18,8 +17,6 @@ export async function enableNotifications() {
             alert("Service worker not registered");
             return null;
         }
-
-        console.log("Using service worker:", registration.active?.scriptURL);
 
         const vapidKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
         const token = await getToken(messaging, { 
@@ -32,7 +29,6 @@ export async function enableNotifications() {
             return null;
         }
 
-        console.log("FCM TOKEN:", token);
         localStorage.setItem("fcmToken", token);
         localStorage.setItem("notificationsEnabled", "true");
 
