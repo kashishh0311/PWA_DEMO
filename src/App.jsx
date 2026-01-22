@@ -13,21 +13,9 @@ function App() {
   const { isAuthenticated, isPWA } = usePasskeyAuth();
 
 
-  //regiser sw
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/firebase-messaging-sw.js").then(  
-        (registration) => {
-          console.log("Service Worker registered with scope:", registration.scope);
-        },
-        (err) => {
-          console.log("Service Worker registration failed:", err);
-        }
-      );
-    } else {
-      console.log("Service Worker is not supported in this browser.");
-    }
-  }, []);
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("/firebase-messaging-sw.js");
+}
 
   // PWA install 
   useEffect(() => {
